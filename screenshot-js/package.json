@@ -1,0 +1,32 @@
+{
+  "name": "mcp-screenshot-server",
+  "version": "1.0.0",
+  "description": "MCP (Model Context Protocol) server for automated screenshot capture - Plain JavaScript",
+  "main": "src/index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "node --watch src/index.js"
+  },
+  "keywords": [
+    "mcp",
+    "screenshot",
+    "model-context-protocol",
+    "claude",
+    "ai",
+    "automation",
+    "capture",
+    "javascript"
+  ],
+  "author": "MCP Screenshot Server",
+  "license": "MIT",
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^0.4.0",
+    "screenshot-desktop": "^1.15.0",
+    "sharp": "^0.33.0",
+    "dotenv": "^16.4.7"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
