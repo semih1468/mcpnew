@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "code-graph": {
+      "command": "node",
+      "args": ["C:/xampp/htdocs/mcp/code-graph/src/index.js"],
+      "env": {
+        "DB_PATH": "./db",
+        "MAX_FILE_SIZE": "5242880"
+      }
+    }
+  }
+}

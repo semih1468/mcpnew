@@ -1,0 +1,37 @@
+{
+  "mcpServers": {
+    "mysql-js": {
+      "command": "node",
+      "args": ["C:/xampp/htdocs/mcp/mysql-js/src/index.js"],
+      "env": {
+        "DB_HOST": "localhost",
+        "DB_USER": "root",
+        "DB_PASSWORD": "",
+        "DB_PORT": "3306"
+      }
+    },
+    "screenshot-js": {
+      "command": "node",
+      "args": ["C:/xampp/htdocs/mcp/screenshot-js/src/index.js"],
+      "env": {
+        "SCREENSHOTS_DIR": "C:/xampp/htdocs/mcp/screenshot-js/screenshots"
+      }
+    },
+    "quality-audit": {
+      "command": "node",
+      "args": ["C:/xampp/htdocs/mcp/quality-audit/src/index.js"]
+    },
+    "code-graph": {
+      "command": "node",
+      "args": ["C:/xampp/htdocs/mcp/code-graph/src/index.js"],
+      "env": {
+        "DB_PATH": "C:/xampp/htdocs/mcp/code-graph/db",
+        "MAX_FILE_SIZE": "5242880"
+      }
+    },
+    "taskqueue": {
+      "command": "npx",
+      "args": ["-y", "@johnnyknit/taskqueue"]
+    }
+  }
+}

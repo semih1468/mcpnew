@@ -1,0 +1,8 @@
+[2025-08-23T14:59:19.594Z] [INFO] | Source: infoLog: [Stability] Initializing stability systems
+[2025-08-23T14:59:19.595Z] [INFO] | Source: infoLog: [SessionStability] Starting health monitoring
+[2025-08-23T14:59:19.598Z] [INFO] | Source: infoLog: [Stability] Stability systems initialized
+[2025-08-23T14:59:19.599Z] [INFO] | Source: infoLog: [AutoRecovery] Starting monitoring
+[2025-08-23T14:59:19.599Z] [INFO] | Source: infoLog: Stability systems initialized successfully
+[2025-08-23T14:59:19.600Z] [INFO] | Source: infoLog: [UpdateManager] Initializing Claude update manager
+[2025-08-23T14:59:31.501Z] [INFO] | Source: infoLog: Claude update manager initialized
+[2025-08-23T14:59:31.503Z] [INFO] | Source: infoLog: Extension activated with validated configuration | Context: {"version":"3.20.1","developmentMode":false}
