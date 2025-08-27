@@ -23,7 +23,13 @@ export class AuditService {
   }
 
   async auditRepository(paths, exclude) {
-    const files = await this.collectFiles(paths, exclude);
+    const basePath = process.cwd();
+    console.error('MCP Server CWD:', basePath);
+    console.error('Audit paths:', paths);
+    
+    const files = await this.collectFiles(paths, exclude, basePath);
+    console.error('Files collected:', files.length);
+    
     const results = {
       syntax: [],
       duplicates: [],
@@ -57,11 +63,14 @@ export class AuditService {
     return this.reportGenerator.generate(results, 1);
   }
 
-  async collectFiles(paths, exclude) {
+  async collectFiles(paths, exclude, basePath = process.cwd()) {
     const allFiles = new Set();
     
     for (const searchPath of paths) {
-      const absolutePath = path.resolve(searchPath);
+      const absolutePath = path.isAbsolute(searchPath) 
+        ? searchPath 
+        : path.resolve(basePath, searchPath);
+      
       const stats = await fs.stat(absolutePath).catch(() => null);
       
       if (!stats) continue;
@@ -69,14 +78,18 @@ export class AuditService {
       if (stats.isFile()) {
         allFiles.add(absolutePath);
       } else {
-        const pattern = path.join(absolutePath, '**/*.{js,jsx,ts,tsx,java,cs,py,go,rb}');
+        const pattern = path.join(absolutePath, '**/*.{js,jsx,ts,tsx,java,cs,py,go,rb}').replace(/\\/g, '/');
         const files = await glob(pattern, { 
-          ignore: ['**/node_modules/**', '**/dist/**', '**/build/**', '**/.git/**', '**/coverage/**']
+          ignore: ['**/node_modules/**', '**/dist/**', '**/build/**', '**/.git/**', '**/coverage/**'],
+          windowsPathsNoEscape: true,
+          cwd: basePath
         });
         
         for (const file of files) {
           const resolvedFile = path.resolve(file);
-          if (exclude && this.isExcluded(resolvedFile, exclude)) continue;
+          if (exclude && this.isExcluded(resolvedFile, exclude)) {
+            continue;
+          }
           allFiles.add(resolvedFile);
         }
       }
@@ -86,7 +99,14 @@ export class AuditService {
   }
 
   isExcluded(file, excludePatterns) {
-    return excludePatterns.some(pattern => minimatch(file, pattern));
+    const normalizedFile = file.replace(/\\/g, '/');
+    return excludePatterns.some(pattern => {
+      const normalizedPattern = pattern.replace(/\\/g, '/');
+      const isMatch = minimatch(normalizedFile, normalizedPattern) || 
+                     minimatch(normalizedFile, `**/${normalizedPattern}`) ||
+                     normalizedFile.includes(normalizedPattern.replace(/\*/g, ''));
+      return isMatch;
+    });
   }
 
   async analyzeFile(filePath) {

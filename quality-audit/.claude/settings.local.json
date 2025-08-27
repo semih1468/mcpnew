@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "mcp__quality-audit__audit_repo",
+      "Bash(node:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}
